@@ -3,11 +3,6 @@ const output = document.querySelector("h2");
 
 password.addEventListener("input", () => {
   const val = password.value;
-  if (val.length < 8) {
-    output.textContent = "Week";
-    output.style.color = "red";
-    return;
-  }
 
   // capital , small , number , special   ASCI table ke base pe compare krenge
 
@@ -29,8 +24,12 @@ password.addEventListener("input", () => {
     }
   }
 
-  if (hasCapital && hasSmall && hasNumber && hasSpecial) {
+  if (val.length >= 8 && hasCapital && hasSmall && hasNumber && hasSpecial) {
     output.textContent = "Strong";
     output.style.color = "green";
+  } else {
+    output.textContent = "Week";
+    output.style.color = "red";
+    return;
   }
 });
