@@ -32,12 +32,29 @@ gitHub();
 const btn = document.querySelector("button");
 const input = document.querySelector("input");
 
+function debounce(func, delay) {
+  let timeoutId;
+  return function (...args) {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
+    timeoutId = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
+}
+
+function findSuggestion(e) {
+  // const number = Number(input.value);
+  gitHub(Number(e.target.value));
+}
+
+const debounceFunc = debounce(findSuggestion, 300);
+
 btn.addEventListener("click", () => {
   const number = Number(input.value);
   gitHub(number);
 });
 
-input.addEventListener("input", () => {
-  const number = Number(input.value);
-  gitHub(number);
-});
+input.addEventListener("input", debounceFunc);
