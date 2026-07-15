@@ -1,0 +1,17 @@
+[
+  {
+    "id": 0,
+    "title": "Dangal",
+    "genre": "sports",
+    "language": "hindi",
+    "rating": 4.7,
+    "releaseYear": 2016,
+    "duration": 161,
+    "availableOnOTT": true
+  },
+  {
+    "id": 2,
+    "title": "Sholay",
+    "genre": "action"
+  }
+]
