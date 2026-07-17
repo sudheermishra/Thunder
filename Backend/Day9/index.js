@@ -2,7 +2,6 @@ import { MongoClient } from "mongodb";
 
 async function runGetStarted() {
   const uri =
-    "mongodb+srv://rohitnegibusiness9_db_user:0TRE2l5E0xUwERUq@cluster0.jzw8pgb.mongodb.net/";
   const client = new MongoClient(uri);
   try {
     const database = client.db("Thunder");
