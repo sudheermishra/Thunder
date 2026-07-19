@@ -1,4 +1,4 @@
-const products = [
+const Data = [
   {
     name: "Apple Smartphone Pro",
     slug: "apple-smartphone-pro-1",
@@ -2126,4 +2126,4 @@ const products = [
   },
 ];
 
-export default products;
+export default Data;
