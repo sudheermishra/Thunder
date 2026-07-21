@@ -917,7 +917,32 @@ app.patch("/products/:slug/discount", async (req, resp) => {
     resp.status(200).json({
       product,
     });
-  } catch (error) {}
+  } catch (error) {
+    resp.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
+// 34. GET /products/search/discounted
+
+app.get("/products/search/discounted", async (req, resp) => {
+  try {
+    const products = await Product.find({ discount: { $gt: 0 } });
+    if (products.length === 0) {
+      return resp.status(200).json({
+        products: [],
+      });
+    }
+
+    resp.status(200).json({
+      products,
+    });
+  } catch (error) {
+    resp.status(500).json({
+      message: error.message,
+    });
+  }
 });
 
 app.listen(3000, () => {
