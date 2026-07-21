@@ -851,7 +851,7 @@ app.get("/products/:slug/reviews", async (req, resp) => {
   try {
     const product = await Product.findOne({ slug: slug });
     if (!product) {
-      resp.status(400).json({
+      resp.status(404).json({
         message: "product not found",
       });
     }
@@ -865,6 +865,59 @@ app.get("/products/:slug/reviews", async (req, resp) => {
       message: error.message,
     });
   }
+});
+
+//32. PATCH /products/:slug/reviews/remove-last
+app.patch("/products/:slug/reviews/remove-last", async (req, resp) => {
+  const slug = req.params.slug;
+  try {
+    const product = await Product.findOneAndUpdate(
+      { slug: slug },
+      { $pop: { reviews: -1 } },
+      { runValidators: true, new: true },
+    );
+    if (!product) {
+      resp.status(404).json({
+        message: "product not found",
+      });
+    }
+
+    resp.status(200).json({
+      product,
+    });
+  } catch (error) {
+    resp.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
+// 33. PATCH /products/:slug/discount
+
+app.patch("/products/:slug/discount", async (req, resp) => {
+  // const slug = req.params.slug;
+  const discount = Number(req.body.discount);
+  try {
+    if (discount < 0 || discount > 90) {
+      return resp.status(400).json({
+        message: "Discount cannot be negative or cannot be greater than 90",
+      });
+    }
+    const product = await Product.findOneAndUpdate(
+      { slug: req.params.slug },
+      { discount: discount },
+      { runValidators: true, new: true },
+    );
+    if (!product) {
+      return resp.status(404).json({
+        message: "product not found",
+      });
+    }
+
+    resp.status(200).json({
+      product,
+    });
+  } catch (error) {}
 });
 
 app.listen(3000, () => {
